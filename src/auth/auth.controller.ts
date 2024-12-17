@@ -7,7 +7,6 @@ import {
   HttpCode,
   HttpStatus,
   UseGuards,
-  Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto, RegisterDto } from './auth.dto';
