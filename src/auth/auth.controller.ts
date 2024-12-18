@@ -42,6 +42,9 @@ export class AuthController {
       loginDto.username,
       loginDto.password,
     );
+
+    await this.authService.updateUser(result.user.id, result.refresh_token);
+
     return {
       statusCode: HttpStatus.OK,
       message: 'Login successful',

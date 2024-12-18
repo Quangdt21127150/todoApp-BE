@@ -9,6 +9,7 @@ import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { User } from './user.schema';
 import { JwtService } from '@nestjs/jwt';
+import { AuthData } from './auth.interface';
 
 @Injectable()
 export class AuthService {
@@ -55,6 +56,17 @@ export class AuthService {
     }
 
     return this.generateToken(user);
+  }
+
+  async updateUser(userId: string, refreshToken: string) {
+    const updatedUser = await this.userModel.findByIdAndUpdate(
+      userId,
+      { refresh_token: refreshToken },
+      { new: true },
+    );
+    if (!updatedUser) {
+      throw new NotFoundException('User not found');
+    }
   }
 
   private generateToken(user: User) {
